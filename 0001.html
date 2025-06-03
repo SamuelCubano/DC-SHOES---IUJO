@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del Producto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles-productos.css">
+</head>
+<body>
+  <header>
+    <div class="carrito-icono" onclick="toggleCarrito()">
+      🛒 Carrito (<span id="contadorCarrito">0</span>)
+    </div>
+    <a href="index.html"><img src="/img/logo.png" alt="DC Shoes" width="70" class="logo"></a>
+    <button class="btn" onclick="toggleLogin()" style="margin-left: 20px;">Iniciar sesión</button>
+    <div class="carrito-container" id="carritoContainer">
+      <button class="close-btn" onclick="toggleCarrito()">&times;</button>
+      <h3>Carrito</h3>
+      <ul id="listaCarrito"></ul>
+      <p><strong>Total: $<span id="total">0</span></strong></p>
+      <button class="btn-confirmar" onclick="mostrarLoginDesdeCarrito()">Concretar compra</button>
+    </div>
+    <div id="loginForm">
+      <button class="close-btn" onclick="toggleLogin()">&times;</button>
+      <h3>Iniciar sesión</h3>
+      <input type="email" placeholder="Correo electrónico" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
+      <input type="password" placeholder="Contraseña" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
+      <button class="btn btn-add" style="width:100%;">Entrar</button>
+      <p style="text-align:center; margin-top:10px; font-size:14px;">¿No tienes cuenta? <a href="login.html">Regístrate</a></p>
+    </div>
+  </header>
+
+  <div class="producto-detalle">
+    <img src="/img/productos/0001.jpg" alt="Producto">
+    <div class="producto-info">
+      <h2>Zapatilla Pure (Bpc2) DC Mujer</h2>
+      <p><strong>Precio: </strong>122,80$</p>
+      <p><strong>Stock disponible:</strong> <span id="stock">10</span></p>
+      <p>Capellada de Nobuck sintético, Descarne y/o Sintético + Forrería de Mesh + Cuello y lengüeta acolchados con espuma para mayor amortiguación y protección + Construcción vulcanizada + Suela de caucho resistente a la abrasión + Diseño de pisada “Pill Pattern” de DC.</p>
+      <p><strong>COLOR: GRIS </strong></p>
+
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" class="btn" style="margin-bottom: 10px;">
+        <option value="adulto">Adulto</option>
+        <option value="niño">Niño</option>
+      </select>
+
+      <label for="talla">Talla:</label>
+      <select id="talla" class="btn" style="margin-bottom: 10px;">
+        <option value="36">36</option>
+        <option value="37">37</option>
+        <option value="38">38</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="43">43</option>
+      </select>
+
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" id="cantidad" class="btn" min="1" max="10" value="1" style="margin-bottom: 20px;">
+      <br>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Zapatilla Pure (Bpc2) DC Mujer', 122.80)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  <hr><br>
+  <h2 class="subtitulo">También podrían interesarte estos productos!</h2>
+  <main class="grid-productos"> 
+    <div class="producto">
+      <img src="/img/productos/0006.jpg" alt="Transit Shoes">
+      <h3>Camisa Mc Scribble (Neg) DC</h3>
+      <p><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
+      <a href="0006.html" class="btn btn-add">Ver más</a>
+    </div>
+    <div class="producto">
+      <img src="/img/productos/0007.jpg" alt=" Light (Tpc0) DC">
+      <h3>Remera Ml Star Ls (Ama) DC</h3>
+      <p><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
+      <a href="producto4.html" class="btn btn-add">Ver más</a>  
+    </div>
+    <div class="producto">
+      <img src="/img/productos/0008.jpg" alt="Ascend Skate Shoes">
+      <h3>Zapatillas Trase Tx Le (Xckc) DC</h3>
+      <p><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
+      <a href="producto4.html" class="btn btn-add">Ver más</a>  
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 DC Shoes. Todos los derechos reservados.</p>
+    <p>Contacto: contacto@dcshoes.com</p>
+    <p>Síguenos en redes sociales: Instagram | Facebook | Twitter</p>
+  </footer>
+
+  <script>
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function toggleCarrito() {
+      const container = document.getElementById('carritoContainer');
+      container.classList.toggle('active');
+    }
+
+    function toggleLogin() {
+      const form = document.getElementById('loginForm');
+      form.classList.toggle('active');
+    }
+
+    function mostrarLoginDesdeCarrito() {
+      const form = document.getElementById('loginForm');
+      if (!form.classList.contains('active')) {
+        form.classList.add('active');
+      }
+    }
+
+    function agregarAlCarrito(nombre, precio) {
+      const cantidad = parseInt(document.getElementById('cantidad').value);
+      const stock = parseInt(document.getElementById('stock').textContent);
+
+      if (cantidad > stock) {
+        alert('No hay suficiente stock disponible');
+        return;
+      }
+
+      const item = carrito.find(i => i.nombre === nombre);
+      if (item) {
+        item.cantidad += cantidad;
+      } else {
+        carrito.push({ nombre, precio, cantidad });
+      }
+
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function borrarDelCarrito(index) {
+      carrito.splice(index, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('listaCarrito');
+      const total = document.getElementById('total');
+      const contador = document.getElementById('contadorCarrito');
+
+      lista.innerHTML = '';
+      let suma = 0;
+      let count = 0;
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)} <button class='btn btn-delete' onclick='borrarDelCarrito(${index})'>X</button>`;
+        lista.appendChild(li);
+        suma += item.precio * item.cantidad;
+        count += item.cantidad;
+      });
+
+      total.textContent = suma.toFixed(2);
+      contador.textContent = count;
+    }
+
+    actualizarCarrito();
+  </script>
+</body>
+</html>

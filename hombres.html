@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hombres - DC Shoes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles-index.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="btn">⬅ Volver</a>
+    <h1>DC Shoes</h1>
+    <div class="carrito-icono" onclick="toggleCarrito()">
+      🛒 Carrito (<span id="contadorCarrito">0</span>)
+    </div>
+    <div class="carrito-container" id="carritoContainer">
+      <button class="close-btn" onclick="toggleCarrito()">✖</button>
+      <h3>Carrito</h3>
+      <ul id="listaCarrito"></ul>
+      <p><strong>Total: $<span id="total">0</span></strong></p>
+    </div>
+  </header>
+
+  <main class="grid-productos">
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1593032465171-d12760f017d6?fit=crop&w=600&q=80" alt="Producto 1">
+      <h3>Men's Street Runner</h3>
+      <p>$70</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Street Runner', 70)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1596464716121-1e4fdd5a47a1?fit=crop&w=600&q=80" alt="Producto 2">
+      <h3>Men's Urban High</h3>
+      <p>$85</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Urban High', 85)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1587049352842-ec7f2b98a67a?fit=crop&w=600&q=80" alt="Producto 3">
+      <h3>Men's Retro Style</h3>
+      <p>$65</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Retro Style', 65)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1625242401588-0a5db432ed31?fit=crop&w=600&q=80" alt="Producto 4">
+      <h3>Men's Trail Force</h3>
+      <p>$90</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Trail Force', 90)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1618354691373-98b10a0cb50a?fit=crop&w=600&q=80" alt="Producto 5">
+      <h3>Men's Skate Classic</h3>
+      <p>$78</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Skate Classic', 78)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1620201231274-bf32ee2b6bd3?fit=crop&w=600&q=80" alt="Producto 6">
+      <h3>Men's Active Boost</h3>
+      <p>$95</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Active Boost', 95)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1605225348488-0214c31a8b17?fit=crop&w=600&q=80" alt="Producto 7">
+      <h3>Men's Denim Walkers</h3>
+      <p>$60</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Denim Walkers', 60)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1575537302964-96cd59a83c75?fit=crop&w=600&q=80" alt="Producto 8">
+      <h3>Men's Desert Trek</h3>
+      <p>$88</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Desert Trek', 88)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1610443067415-30c8a23b364f?fit=crop&w=600&q=80" alt="Producto 9">
+      <h3>Men's Cross Fit</h3>
+      <p>$92</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Cross Fit', 92)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1556909212-dc782e2cf7a2?fit=crop&w=600&q=80" alt="Producto 10">
+      <h3>Men's Run Supreme</h3>
+      <p>$89</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Run Supreme', 89)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1605225348488-0214c31a8b17?fit=crop&w=600&q=80" alt="Producto 7">
+      <h3>Men's Denim Walkers</h3>
+      <p>$60</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Denim Walkers', 60)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1575537302964-96cd59a83c75?fit=crop&w=600&q=80" alt="Producto 8">
+      <h3>Men's Desert Trek</h3>
+      <p>$88</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Desert Trek', 88)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1610443067415-30c8a23b364f?fit=crop&w=600&q=80" alt="Producto 9">
+      <h3>Men's Cross Fit</h3>
+      <p>$92</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Cross Fit', 92)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1556909212-dc782e2cf7a2?fit=crop&w=600&q=80" alt="Producto 10">
+      <h3>Men's Run Supreme</h3>
+      <p>$89</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Run Supreme', 89)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1605225348488-0214c31a8b17?fit=crop&w=600&q=80" alt="Producto 7">
+      <h3>Men's Denim Walkers</h3>
+      <p>$60</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Denim Walkers', 60)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1575537302964-96cd59a83c75?fit=crop&w=600&q=80" alt="Producto 8">
+      <h3>Men's Desert Trek</h3>
+      <p>$88</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Desert Trek', 88)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1610443067415-30c8a23b364f?fit=crop&w=600&q=80" alt="Producto 9">
+      <h3>Men's Cross Fit</h3>
+      <p>$92</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Cross Fit', 92)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1556909212-dc782e2cf7a2?fit=crop&w=600&q=80" alt="Producto 10">
+      <h3>Men's Run Supreme</h3>
+      <p>$89</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Run Supreme', 89)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1610443067415-30c8a23b364f?fit=crop&w=600&q=80" alt="Producto 9">
+      <h3>Men's Cross Fit</h3>
+      <p>$92</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Cross Fit', 92)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="https://images.unsplash.com/photo-1556909212-dc782e2cf7a2?fit=crop&w=600&q=80" alt="Producto 10">
+      <h3>Men's Run Supreme</h3>
+      <p>$89</p>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Men\'s Run Supreme', 89)">Agregar al carrito</button>
+    </div>
+  </main>
+
+  <script>
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    function toggleCarrito() {
+      const container = document.getElementById('carritoContainer');
+      container.classList.toggle('active');
+    }
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function borrarDelCarrito(index) {
+      carrito.splice(index, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('listaCarrito');
+      const total = document.getElementById('total');
+      const contador = document.getElementById('contadorCarrito');
+
+      lista.innerHTML = '';
+      let suma = 0;
+
+      carrito.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.nombre} - $${item.precio} <button class='btn btn-delete' onclick='borrarDelCarrito(${index})'>X</button>`;
+        lista.appendChild(li);
+        suma += item.precio;
+      });
+
+      total.textContent = suma;
+      contador.textContent = carrito.length;
+    }
+
+    actualizarCarrito();
+  </script>
+</body>
+</html>
