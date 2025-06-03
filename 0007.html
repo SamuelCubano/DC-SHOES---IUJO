@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DC Shoes - Tienda Online</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/styles-index.css">
-  <script src="https://kit.fontawesome.com/cf1fb60fea.js" crossorigin="anonymous"></script>
+  <title>Detalle del Producto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles-productos.css">
 </head>
 <body>
   <header>
@@ -34,98 +31,63 @@
     </div>
   </header>
 
+  <div class="producto-detalle">
+    <img src="/img/productos/0007.jpg" alt="Producto">
+    <div class="producto-info">
+      <h2>Remera Ml Star Ls (Ama) DC</h2>
+      <p><strong>Precio: </strong><span class="precio-actual">$21,17</span> <span class="precio-anterior">$42,35</span></p>
+      <p><strong>Stock disponible:</strong> <span id="stock">10</span></p>
+      <p>TELA 100% Algodón <br>
 
-<section class="categorias">
-    <div class="categorias-grid">
-      <a href="mujeres.html" class="categoria-item">
-        <img src="/img/mujer-categoria.png" alt="Mujeres">
-        Mujeres
-      </a>
-      <a href="hombres.html" class="categoria-item">
-        <img src="/img/hombre-categoria.png" alt="Hombres">
-        Hombres
-      </a>
-      <a href="zapatos.html" class="categoria-item">
-        <img src="/img/zapatos-categoria.png" alt="Zapatos">
-        Zapatos
-      </a>
-      <a href="camisas.html" class="categoria-item">
-        <img src="/img/camisas-categoria.png" alt="Camisas">
-        Camisas
-      </a>
-      <a href="gorros.html" class="categoria-item">
-        <img src="/img/gorras-categoria.png" alt="Gorros">
-        Gorros
-      </a>
-      <a href="swetters.html" class="categoria-item">
-        <img src="/img/sueters-categoria.png" alt="Swetters">
-        Swetters
-      </a>
-    </div>
-  </section>
+• Remera manga larga <br>
 
-  <h2 class="subtitulo">Ultimas Tendencias</h2>
-  
-  <main class="grid-productos">
-    <div class="producto">
-      <img src="/img/productos/0001.jpg" alt="Pure (Bpc2)">
-      <h3>Zapatilla Pure (Bpc2) DC Mujer</h3>
-      <p>122,80$</p>
-      <a href="0001.html" class="btn btn-add">Ver más</a>
+• Tejido: Jersey 30.1 <br>
+
+• Fit: Regular<br>
+
+• Avios DC</p>
+      <p><strong>COLOR: NEGRO </strong></p>
+
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" class="btn" style="margin-bottom: 10px;">
+        <option value="adulto">Adulto</option>
+      </select>
+
+      <label for="talla">Talla:</label>
+      <select id="talla" class="btn" style="margin-bottom: 10px;">
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+
+      <label for="cantidad">Cantidad:</label>
+      <input type="number" id="cantidad" class="btn" min="1" max="10" value="1" style="margin-bottom: 20px;">
+      <br>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Remera Ml Star Ls (Ama) DC', 21.17)">Agregar al carrito</button>
     </div>
-    <div class="producto">
-      <img src="/img/productos/0002.jpg" alt="Chester (Rqr0)">
-      <h3>Beanie Snow Chester (Rqr0) DC</h3>
-      <p>$29,64</p>
-      <a href="0002.html" class="btn btn-add">Ver más</a>
-    </div>
-    <div class="producto">
-      <img src="/img/productos/0003.jpg" alt="Transit Shoes">
-      <h3>Campera Navigator Light (Tpc0) DC</h3>
-      <p>$211,74</p>
-      <a href="0003.html" class="btn btn-add">Ver más</a>
-    </div>
-    <div class="producto">
-      <img src="/img/productos/0004.jpg" alt=" Light (Tpc0) DC">
-      <h3>Cap Dyenotts (Xggc) DC</h3>
-      <p>$33,88</p>
-      <a href="0004.html" class="btn btn-add">Ver más</a>  
-    </div>
-    <div class="producto">
-      <img src="/img/productos/0005.jpg" alt="Ascend Skate Shoes">
-      <h3>Zapatillas Pure (Blww) Dc</h3>
-      <p>$127,04</p>
-      <a href="0005.html" class="btn btn-add">Ver más</a>
-    </div>
-  </main>
-  <h2 class="subtitulo">OFERTAS SEMANALES</h2>
+  </div>
+
+  <hr><br>
+  <h2 class="subtitulo">También podrían interesarte estos productos!</h2>
   <main class="grid-productos"> 
     <div class="producto">
       <img src="/img/productos/0006.jpg" alt="Transit Shoes">
       <h3>Camisa Mc Scribble (Neg) DC</h3>
       <p><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
-      <a href="0006.html" class="btn btn-add">Ver más</a>
+      <a href="producto3.html" class="btn btn-add">Ver más</a>
     </div>
     <div class="producto">
       <img src="/img/productos/0007.jpg" alt=" Light (Tpc0) DC">
       <h3>Remera Ml Star Ls (Ama) DC</h3>
-      <p><span class="precio-actual">$21,17</span> <span class="precio-anterior">$42,35</span></p>
-      <a href="0007.html" class="btn btn-add">Ver más</a>  
+      <p><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
+      <a href="producto4.html" class="btn btn-add">Ver más</a>  
     </div>
     <div class="producto">
       <img src="/img/productos/0008.jpg" alt="Ascend Skate Shoes">
       <h3>Zapatillas Trase Tx Le (Xckc) DC</h3>
-      <p><span class="precio-actual">$42,35</span> <span class="precio-anterior">$84,69</span></p>
-      <a href="0008.html" class="btn btn-add">Ver más</a>  
+      <p><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
+      <a href="producto4.html" class="btn btn-add">Ver más</a>  
     </div>
-    </main>
-
-   <section class="redes">
-    <h2 class="subtitulo">Síguenos en redes sociales</h2>
-    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-  </section>
+  </main>
 
   <footer>
     <p>&copy; 2025 DC Shoes. Todos los derechos reservados.</p>
