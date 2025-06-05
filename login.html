@@ -54,7 +54,8 @@
 
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="tel"]{
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
@@ -99,7 +100,7 @@
   <div class="form-container">
     <div id="loginForm">
       <h2>Iniciar sesión</h2>
-      <form>
+      <form id="login">
         <input type="email" placeholder="Correo electrónico" required>
         <input type="password" placeholder="Contraseña" required>
         <button class="btn" type="submit">Entrar</button>
@@ -111,12 +112,15 @@
 
     <div id="registroForm" class="hidden">
       <h2>Registro</h2>
-      <form>
-        <input type="text" placeholder="Nombre completo" required>
-        <input type="email" placeholder="Correo electrónico" required>
-        <input type="password" placeholder="Contraseña" required>
-        <button class="btn" type="submit">Registrarse</button>
-      </form>
+      <form id="register">
+  <input type="text" placeholder="Nombre completo" required>
+  <input type="email" placeholder="Correo electrónico" required>
+  <input type="text" placeholder="Cédula" required>
+  <input type="tel" placeholder="Número telefónico" required>
+  <input type="password" placeholder="Contraseña" required>
+  <input type="password" placeholder="Repetir contraseña" required>
+  <button class="btn" type="submit">Registrarse</button>
+</form>
       <div class="toggle-link">
         ¿Ya tienes cuenta? <a href="#" onclick="toggleForms('login')">Inicia sesión</a>
       </div>
@@ -128,6 +132,62 @@
       document.getElementById('loginForm').classList.toggle('hidden', form !== 'login');
       document.getElementById('registroForm').classList.toggle('hidden', form !== 'registro');
     }
+
+    // Registro
+    document.getElementById('register').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const inputs = this.querySelectorAll('input');
+  const nombre = inputs[0].value.trim();
+  const correo = inputs[1].value.trim();
+  const cedula = inputs[2].value.trim();
+  const telefono = inputs[3].value.trim();
+  const password = inputs[4].value;
+  const repetir = inputs[5].value;
+
+  if (password !== repetir) {
+    alert("Las contraseñas no coinciden.");
+    return;
+  }
+
+  if (!cedula || !telefono) {
+    alert("Debes ingresar tu cédula y número telefónico.");
+    return;
+  }
+
+  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+  if (usuarios.some(u => u.correo === correo)) {
+    alert("Ya existe un usuario con ese correo.");
+    return;
+  }
+
+  usuarios.push({ nombre, correo, cedula, telefono, password });
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+  alert("Registro exitoso. Ahora puedes iniciar sesión.");
+  toggleForms('login');
+});
+
+
+    // Login
+    document.getElementById('login').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const correo = this.querySelectorAll('input')[0].value.trim();
+      const password = this.querySelectorAll('input')[1].value;
+
+      const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+      const user = usuarios.find(u => u.correo === correo && u.password === password);
+
+      if (!user) {
+        alert("Correo o contraseña incorrectos.");
+        return;
+      }
+
+      localStorage.setItem('usuarioActivo', JSON.stringify(user));
+      window.location.href = "dashboard.html";
+    });
   </script>
 </body>
 </html>

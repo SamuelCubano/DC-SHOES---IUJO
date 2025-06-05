@@ -9,14 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles-index.css">
   <script src="https://kit.fontawesome.com/cf1fb60fea.js" crossorigin="anonymous"></script>
+  <script src="auth.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="/header.js" defer></script>
 </head>
-<body>
+<body onload="checkUserSession(); actualizarCarrito();">
+
   <header>
-    <div class="carrito-icono" onclick="toggleCarrito()">
+ <div class="carrito-icono" onclick="toggleCarrito()">
       🛒 Carrito (<span id="contadorCarrito">0</span>)
     </div>
-    <a href="index.html"><img src="/img/logo.png" alt="DC Shoes" width="70" class="logo"></a>
-    <button class="btn" onclick="toggleLogin()" style="margin-left: 20px;">Iniciar sesión</button>
     <div class="carrito-container" id="carritoContainer">
       <button class="close-btn" onclick="toggleCarrito()">&times;</button>
       <h3>Carrito</h3>
@@ -24,15 +26,10 @@
       <p><strong>Total: $<span id="total">0</span></strong></p>
       <button class="btn-confirmar" onclick="mostrarLoginDesdeCarrito()">Concretar compra</button>
     </div>
-    <div id="loginForm">
-      <button class="close-btn" onclick="toggleLogin()">&times;</button>
-      <h3>Iniciar sesión</h3>
-      <input type="email" placeholder="Correo electrónico" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
-      <input type="password" placeholder="Contraseña" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
-      <button class="btn btn-add" style="width:100%;">Entrar</button>
-      <p style="text-align:center; margin-top:10px; font-size:14px;">¿No tienes cuenta? <a href="login.html">Regístrate</a></p>
-    </div>
-  </header>
+  <a href="index.html"><img src="/img/logo.png" alt="DC Shoes" width="70" class="logo"></a>
+  <a href="login.html"><button class="btn btn-login" onclick="toggleLogin()">Iniciar sesión</button></a>
+  <div id="userMenu" class="user-menu" style="display: none;"></div>
+</header>
 
 
 <section class="categorias">
@@ -132,75 +129,5 @@
     <p>Contacto: contacto@dcshoes.com</p>
     <p>Síguenos en redes sociales: Instagram | Facebook | Twitter</p>
   </footer>
-
-  <script>
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-    function toggleCarrito() {
-      const container = document.getElementById('carritoContainer');
-      container.classList.toggle('active');
-    }
-
-    function toggleLogin() {
-      const form = document.getElementById('loginForm');
-      form.classList.toggle('active');
-    }
-
-    function mostrarLoginDesdeCarrito() {
-      const form = document.getElementById('loginForm');
-      if (!form.classList.contains('active')) {
-        form.classList.add('active');
-      }
-    }
-
-    function agregarAlCarrito(nombre, precio) {
-      const cantidad = parseInt(document.getElementById('cantidad').value);
-      const stock = parseInt(document.getElementById('stock').textContent);
-
-      if (cantidad > stock) {
-        alert('No hay suficiente stock disponible');
-        return;
-      }
-
-      const item = carrito.find(i => i.nombre === nombre);
-      if (item) {
-        item.cantidad += cantidad;
-      } else {
-        carrito.push({ nombre, precio, cantidad });
-      }
-
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
-    }
-
-    function borrarDelCarrito(index) {
-      carrito.splice(index, 1);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
-    }
-
-    function actualizarCarrito() {
-      const lista = document.getElementById('listaCarrito');
-      const total = document.getElementById('total');
-      const contador = document.getElementById('contadorCarrito');
-
-      lista.innerHTML = '';
-      let suma = 0;
-      let count = 0;
-
-      carrito.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)} <button class='btn btn-delete' onclick='borrarDelCarrito(${index})'>X</button>`;
-        lista.appendChild(li);
-        suma += item.precio * item.cantidad;
-        count += item.cantidad;
-      });
-
-      total.textContent = suma.toFixed(2);
-      contador.textContent = count;
-    }
-
-    actualizarCarrito();
-  </script>
 </body>
-</html>
+</html> 

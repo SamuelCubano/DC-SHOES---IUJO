@@ -30,12 +30,24 @@
 </header>
 
   <div class="producto-detalle">
-    <img src="/img/productos/0006.jpg" alt="Producto">
+    <img src="/img/productos/0025.jpg" alt="Producto">
     <div class="producto-info">
-      <h2>Camisa Mc Scribble (Neg) DC</h2>
-      <p><strong>Precio: </strong><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
+      <h2>Zapatillas Manteca 4 Platform (Bkw) Dc Mujer</h2>
+      <p><strong>Precio: </strong><span class="precio-actual">$134,99 </span></p>
       <p><strong>Stock disponible:</strong> <span id="stock">10</span></p>
-      <p>TELA 100% Algodón Camisa manga corta Tejido: Poplin de algodon Fit: Regular Full print estampa digital Avios DC.</p>
+      <p>COMPOSICIÓN Empeine: Piel (Vaca) / Forro: Textil / Suela: EVA <br>
+
+•Capellada cuero<br>
+
+•Lengüeta y cuello acolchados con espuma para mayor confort y sujeción<br>
+
+•Construcción de suela con plataformat<br>
+<br>
+
+•Suela exterior de EVA<br>
+
+•Pisada con dibujo "Pill Pattern" marca registrada DC</p>
+
       <p><strong>COLOR: NEGRO </strong></p>
 
       <label for="categoria">Categoría:</label>
@@ -46,13 +58,20 @@
 
       <label for="talla">Talla:</label>
       <select id="talla" class="btn" style="margin-bottom: 10px;">
-        <option value="L">L</option>
+        <option value="36">36</option>
+        <option value="37">37</option>
+        <option value="38">38</option>
+        <option value="39">39</option>
+        <option value="40">40</option>
+        <option value="41">41</option>
+        <option value="42">42</option>
+        <option value="43">43</option>
       </select>
 
       <label for="cantidad">Cantidad:</label>
       <input type="number" id="cantidad" class="btn" min="1" max="10" value="1" style="margin-bottom: 20px;">
       <br>
-      <button class="btn btn-add" onclick="agregarAlCarrito('Camisa Mc Scribble (Neg) DC', 85)">Agregar al carrito</button>
+      <button class="btn btn-add" onclick="agregarAlCarrito('Zapatillas Manteca 4 Platform (Bkw) Dc Mujer', 134.99)">Agregar al carrito</button>
     </div>
   </div>
 
@@ -63,7 +82,7 @@
       <img src="/img/productos/0006.jpg" alt="Transit Shoes">
       <h3>Camisa Mc Scribble (Neg) DC</h3>
       <p><span class="precio-actual">$85</span> <span class="precio-anterior">$110</span></p>
-      <a href="producto3.html" class="btn btn-add">Ver más</a>
+      <a href="0006.html" class="btn btn-add">Ver más</a>
     </div>
     <div class="producto">
       <img src="/img/productos/0007.jpg" alt=" Light (Tpc0) DC">
@@ -84,75 +103,5 @@
     <p>Contacto: contacto@dcshoes.com</p>
     <p>Síguenos en redes sociales: Instagram | Facebook | Twitter</p>
   </footer>
-
-  <script>
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-    function toggleCarrito() {
-      const container = document.getElementById('carritoContainer');
-      container.classList.toggle('active');
-    }
-
-    function toggleLogin() {
-      const form = document.getElementById('loginForm');
-      form.classList.toggle('active');
-    }
-
-    function mostrarLoginDesdeCarrito() {
-      const form = document.getElementById('loginForm');
-      if (!form.classList.contains('active')) {
-        form.classList.add('active');
-      }
-    }
-
-    function agregarAlCarrito(nombre, precio) {
-      const cantidad = parseInt(document.getElementById('cantidad').value);
-      const stock = parseInt(document.getElementById('stock').textContent);
-
-      if (cantidad > stock) {
-        alert('No hay suficiente stock disponible');
-        return;
-      }
-
-      const item = carrito.find(i => i.nombre === nombre);
-      if (item) {
-        item.cantidad += cantidad;
-      } else {
-        carrito.push({ nombre, precio, cantidad });
-      }
-
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
-    }
-
-    function borrarDelCarrito(index) {
-      carrito.splice(index, 1);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
-    }
-
-    function actualizarCarrito() {
-      const lista = document.getElementById('listaCarrito');
-      const total = document.getElementById('total');
-      const contador = document.getElementById('contadorCarrito');
-
-      lista.innerHTML = '';
-      let suma = 0;
-      let count = 0;
-
-      carrito.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)} <button class='btn btn-delete' onclick='borrarDelCarrito(${index})'>X</button>`;
-        lista.appendChild(li);
-        suma += item.precio * item.cantidad;
-        count += item.cantidad;
-      });
-
-      total.textContent = suma.toFixed(2);
-      contador.textContent = count;
-    }
-
-    actualizarCarrito();
-  </script>
 </body>
 </html>

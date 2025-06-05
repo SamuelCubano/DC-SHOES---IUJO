@@ -7,14 +7,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles-categoria.css">
   <link rel="stylesheet" href="styles/styles-productos.css">
+  <script src="auth.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="/header.js" defer></script>
+  <script src="/filtro.js" defer></script>
 </head>
-<body>
+<body onload="checkUserSession(); actualizarCarrito();">
+
   <header>
-    <div class="carrito-icono" onclick="toggleCarrito()">
+ <div class="carrito-icono" onclick="toggleCarrito()">
       🛒 Carrito (<span id="contadorCarrito">0</span>)
     </div>
-    <a href="index.html"><img src="/img/logo.png" alt="DC Shoes" width="70" class="logo"></a>
-    <button class="btn" onclick="toggleLogin()" style="margin-left: 20px;">Iniciar sesión</button>
     <div class="carrito-container" id="carritoContainer">
       <button class="close-btn" onclick="toggleCarrito()">&times;</button>
       <h3>Carrito</h3>
@@ -22,15 +25,10 @@
       <p><strong>Total: $<span id="total">0</span></strong></p>
       <button class="btn-confirmar" onclick="mostrarLoginDesdeCarrito()">Concretar compra</button>
     </div>
-    <div id="loginForm">
-      <button class="close-btn" onclick="toggleLogin()">&times;</button>
-      <h3>Iniciar sesión</h3>
-      <input type="email" placeholder="Correo electrónico" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
-      <input type="password" placeholder="Contraseña" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
-      <button class="btn btn-add" style="width:100%;">Entrar</button>
-      <p style="text-align:center; margin-top:10px; font-size:14px;">¿No tienes cuenta? <a href="login.html">Regístrate</a></p>
-    </div>
-  </header>
+  <a href="index.html"><img src="/img/logo.png" alt="DC Shoes" width="70" class="logo"></a>
+  <a href="login.html"><button class="btn btn-login" onclick="toggleLogin()">Iniciar sesión</button></a>
+  <div id="userMenu" class="user-menu" style="display: none;"></div>
+</header>
 
   <button class="toggle-filtros-btn" onclick="toggleFiltros()">Filtros</button>
   <div class="main-content">
@@ -69,8 +67,8 @@
       </div>
       <div class="filtro-section">
         <h3>Precio</h3>
-        <input type="range" id="filtro-precio" min="10" max="200" value="200">
-        <p id="precio-actual">Hasta $200</p>
+        <input type="range" id="filtro-precio" min="10" max="400" value="400">
+        <p id="precio-actual">Hasta $400</p>
       </div>
       <button class="btn-add" style="width: 100%; margin-top: 10px;" onclick="aplicarFiltros()">Aplicar Filtros</button>
       <button class="btn-add" style="width: 100%; margin-top: 10px; background-color: #999;" onclick="resetearFiltros()">Resetear Filtros</button>
@@ -78,293 +76,152 @@
 
     <section class="productos-contenedor">
       <div class="grid-productos" id="lista-productos">
-        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="invierno" data-color="negro" data-precio="120">
+        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="verano" data-color="negro" data-precio="122.80">
           <img src="/img/productos/0001.jpg" alt="Zapatilla Negra">
           <h3>Zapatilla Pure (Bpc2) DC Mujer</h3>
           <p>122,80$</p>
-          <button class="btn-add">Ver más</button>
+          <a href="0001.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="verano" data-color="blanco" data-precio="95">
+        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="verano" data-color="negro" data-precio="127.04">
           <img src="/img/productos/0005.jpg" alt="Zapatilla Blanca">
           <h3>Zapatillas Pure (Blww) DC Mujer</h3>
           <p>$127,04</p>
-          <button class="btn-add">Ver más</button>
+          <a href="0005.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="camisas" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="camisas" data-categoria="adulto" data-temporada="verano" data-color="rojo" data-precio="23.64">
           <img src="/img/productos/0009.jpg" alt="Zapatilla Roja Niño">
           <h3>Remera ML Drip (Ros) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$23,64</p>
+          <a href="0009.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="sueters" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="sueters" data-categoria="niño" data-temporada="invierno" data-color="blanco" data-precio="379.98">
           <img src="/img/productos/0010.jpg" alt="Zapatilla Roja Niño">
           <h3>Campera Snow Cruiser (Xwwp) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$379,98</p>
+          <a href="0010.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="camisas" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="camisas" data-categoria="niño" data-temporada="verano" data-color="azul" data-precio="14.78">
           <img src="/img/productos/0011.jpg" alt="Zapatilla Roja Niño">
           <h3>Remera Ml DC Op Crest (Azf) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$14,78</p>
+          <a href="0011.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="sueters" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="sueters" data-categoria="adulto" data-temporada="invierno" data-color="blanco" data-precio="19.00">
           <img src="/img/productos/0012.jpg" alt="Zapatilla Roja Niño">
           <h3>Remera Ml Everyday Thermal (Bla) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$19,00</p>
+          <a href="0012.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="camisas" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="camisas" data-categoria="niño" data-temporada="verano" data-color="negro" data-precio="14.78">
           <img src="/img/productos/0013.jpg" alt="Zapatilla Roja Niño">
           <h3>Musculosa DC Magic Eye (Neg) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$14,78</p>
+          <a href="0013.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="camisas" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="camisas" data-categoria="adulto" data-temporada="verano" data-color="azul" data-precio="27.86">
           <img src="/img/productos/0014.jpg" alt="Zapatilla Roja Niño">
           <h3>Remera Mc Star Flame Boyfriend (Azf) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$27,86</p>
+          <a href="0014.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="sueters" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="sueters" data-categoria="niño" data-temporada="invierno" data-color="blanco" data-precio="67.55">
           <img src="/img/productos/0015.jpg" alt="Zapatilla Roja Niño">
           <h3>Buzo Life Changes (Hue) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$67,55</p>
+          <a href="0015.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="verano" data-color="naranja" data-precio="50.66">
           <img src="/img/productos/0016.jpg" alt="Zapatilla Roja Niño">
           <h3>Zapatillas Midway Sn Knit (Whl) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$50,66</p>
+          <a href="0016.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="verano" data-color="blanco" data-precio="50.66">
           <img src="/img/productos/0017.jpg" alt="Zapatilla Roja Niño">
           <h3>Zapatillas Midway Sn (Wg11) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$50,66</p>
+          <a href="0017.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="invierno" data-color="negro" data-precio="33.78">
           <img src="/img/productos/0018.jpg" alt="Zapatilla Roja Niño">
           <h3>Beanie Snow Splendid (Neg) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$33,78</p>
+          <a href="0018.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="gorros" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="gorros" data-categoria="niño" data-temporada="invierno" data-color="verde" data-precio="33.78">
           <img src="/img/productos/0019.jpg" alt="Zapatilla Roja Niño">
           <h3>Beanie Snow Splendid (Ver) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$33,78</p>
+          <a href="0019.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="33.78">
           <img src="/img/productos/0020.jpg" alt="Zapatilla Roja Niño">
           <h3>Beanie Snow Splendid (Vio) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$33,78</p>
+          <a href="0020.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="gorros" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="gorros" data-categoria="niño" data-temporada="invierno" data-color="blanco" data-precio="33.78">
           <img src="/img/productos/0021.jpg" alt="Zapatilla Roja Niño">
           <h3>Beanie Snow Splendid A (Cru) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$33,78</p>
+          <a href="0021.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="invierno" data-color="negro" data-precio="33.78">
           <img src="/img/productos/0022.jpg" alt="Zapatilla Roja Niño">
           <h3>Gorro Snow Splendid A (Neg) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$33,78</p>
+          <a href="0022.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="verano" data-color="azul" data-precio="143.43">
           <img src="/img/productos/0023.jpg" alt="Zapatilla Roja Niño">
           <h3>Zapatillas Manteca V Ss (2be) Dc Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$143,43</p>
+          <a href="0023.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="verano" data-color="naranja" data-precio="143.43">
           <img src="/img/productos/0024.jpg" alt="Zapatilla Roja Niño">
           <h3>Zapatillas Manteca V Ss (Owm) Dc Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$143,43</p>
+          <a href="0024.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="zapatos" data-categoria="niño" data-temporada="verano" data-color="negro" data-precio="134.99">
           <img src="/img/productos/0025.jpg" alt="Zapatilla Roja Niño">
           <h3>Zapatillas Manteca 4 Platform (Bkw) Dc Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$134,99</p>
+          <a href="0025.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="verano" data-color="blanco" data-precio="134.99">
           <img src="/img/productos/0026.jpg" alt="Zapatilla Roja Niño">
           <h3>Zapatillas Manteca 4 Mid (Whk) Dc Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$134,99</p>
+          <a href="0026.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="sueters" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="sueters" data-categoria="niño" data-temporada="invierno" data-color="negro" data-precio="67.50">
           <img src="/img/productos/0027.jpg" alt="Zapatilla Roja Niño">
           <h3>Buzo Life Changes (Neg) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$67,50</p>
+          <a href="0027.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="gorros" data-categoria="adulto" data-temporada="verano" data-color="negro" data-precio="37.97">
           <img src="/img/productos/0028.jpg" alt="Zapatilla Roja Niño">
           <h3>Hat Buffy Solid (Neg) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$37,97</p>
+          <a href="0028.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="gorros" data-categoria="niño" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="gorros" data-categoria="niño" data-temporada="verano" data-color="blanco" data-precio="37.97">
           <img src="/img/productos/0029.jpg" alt="Zapatilla Roja Niño">
           <h3>Hat Buffy Solid (Bla) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$37,97</p>
+          <a href="0029.html" class="btn btn-add">Ver más</a>
         </div>
-        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="invierno" data-color="rojo" data-precio="60">
+        <div class="producto" data-genero="zapatos" data-categoria="adulto" data-temporada="invierno" data-color="blanco" data-precio="130.77">
           <img src="/img/productos/0030.jpg" alt="Zapatilla Roja Niño">
           <h3>Zapatilla Manteca Ss (Trw) DC Mujer</h3>
-          <p>$60</p>
-          <button class="btn-add">Ver más</button>
+          <p>$130,77</p>
+          <a href="0030.html" class="btn btn-add">Ver más</a>
         </div>
       </div>
     </section>
   </div>
-
-  <script>
-    function toggleFiltros() {
-      document.getElementById('filtroLateral').classList.toggle('active');
-    }
-  </script>
-
-  <script>
-    const productos = document.querySelectorAll('.producto');
-    const colorOptions = document.querySelectorAll('.color-option');
-    let colorSeleccionado = null;
-
-    colorOptions.forEach(color => {
-      color.addEventListener('click', () => {
-        colorOptions.forEach(c => c.classList.remove('selected'));
-        if (colorSeleccionado === color.dataset.color) {
-          colorSeleccionado = null;
-        } else {
-          color.classList.add('selected');
-          colorSeleccionado = color.dataset.color;
-        }
-        aplicarFiltros();
-      });
-    });
-
-    document.getElementById('filtro-precio').addEventListener('input', function () {
-      document.getElementById('precio-actual').textContent = `Hasta $${this.value}`;
-      aplicarFiltros();
-    });
-
-    document.querySelectorAll('.filtro-genero, .filtro-categoria, .filtro-temporada').forEach(el => {
-      el.addEventListener('change', aplicarFiltros);
-    });
-
-    function aplicarFiltros() {
-      const generos = Array.from(document.querySelectorAll('.filtro-genero:checked')).map(el => el.value);
-      const categorias = Array.from(document.querySelectorAll('.filtro-categoria:checked')).map(el => el.value);
-      const temporadas = Array.from(document.querySelectorAll('.filtro-temporada:checked')).map(el => el.value);
-      const maxPrecio = parseFloat(document.getElementById('filtro-precio').value);
-
-      productos.forEach(p => {
-        const genero = p.dataset.genero;
-        const categoria = p.dataset.categoria;
-        const temporada = p.dataset.temporada;
-        const color = p.dataset.color;
-        const precio = parseFloat(p.dataset.precio);
-
-        const mostrar =
-          (generos.length === 0 || generos.includes(genero)) &&
-          (categorias.length === 0 || categorias.includes(categoria)) &&
-          (temporadas.length === 0 || temporadas.includes(temporada)) &&
-          (!colorSeleccionado || colorSeleccionado === color) &&
-          (precio <= maxPrecio);
-
-        p.classList.toggle('hidden', !mostrar);
-      });
-    }
-
-    function resetearFiltros() {
-      document.querySelectorAll('.filtro-lateral input[type="checkbox"]').forEach(el => el.checked = false);
-      document.getElementById('filtro-precio').value = 200;
-      document.getElementById('precio-actual').textContent = 'Hasta $200';
-      colorSeleccionado = null;
-      colorOptions.forEach(c => c.classList.remove('selected'));
-      productos.forEach(p => p.classList.remove('hidden'));
-    }
-
-    function toggleFiltros() {
-      document.getElementById('filtroLateral').classList.toggle('active');
-    }
-  </script>
-
-  <script>
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-    function toggleCarrito() {
-      const container = document.getElementById('carritoContainer');
-      container.classList.toggle('active');
-    }
-
-    function toggleLogin() {
-      const form = document.getElementById('loginForm');
-      form.classList.toggle('active');
-    }
-
-    function mostrarLoginDesdeCarrito() {
-      const form = document.getElementById('loginForm');
-      if (!form.classList.contains('active')) {
-        form.classList.add('active');
-      }
-    }
-
-    function agregarAlCarrito(nombre, precio) {
-      const cantidad = parseInt(document.getElementById('cantidad').value);
-      const stock = parseInt(document.getElementById('stock').textContent);
-
-      if (cantidad > stock) {
-        alert('No hay suficiente stock disponible');
-        return;
-      }
-
-      const item = carrito.find(i => i.nombre === nombre);
-      if (item) {
-        item.cantidad += cantidad;
-      } else {
-        carrito.push({ nombre, precio, cantidad });
-      }
-
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
-    }
-
-    function borrarDelCarrito(index) {
-      carrito.splice(index, 1);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      actualizarCarrito();
-    }
-
-    function actualizarCarrito() {
-      const lista = document.getElementById('listaCarrito');
-      const total = document.getElementById('total');
-      const contador = document.getElementById('contadorCarrito');
-
-      lista.innerHTML = '';
-      let suma = 0;
-      let count = 0;
-
-      carrito.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toFixed(2)} <button class='btn btn-delete' onclick='borrarDelCarrito(${index})'>X</button>`;
-        lista.appendChild(li);
-        suma += item.precio * item.cantidad;
-        count += item.cantidad;
-      });
-
-      total.textContent = suma.toFixed(2);
-      contador.textContent = count;
-    }
-
-    actualizarCarrito();
-  </script>
 </body>
 </html>
